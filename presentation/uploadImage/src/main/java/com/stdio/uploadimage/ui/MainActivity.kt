@@ -16,7 +16,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.graphics.createBitmap
 import coil.compose.AsyncImage
-import com.stdio.uploadimage.AsyncStreamUploader
 import com.stdio.uploadimage.ui.theme.VolcanAppTheme
 import com.stdio.uploadimage.viewmodel.ImageViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -47,24 +46,14 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         model = imageBytes
     )
     val viewmodel = koinViewModel<ImageViewModel>()
-    viewmodel.test()
     LaunchedEffect(imageBytes) {
-        val uploader = AsyncStreamUploader()
-
         try {
 
             println("Starting upload of ${imageBytes.size} bytes...")
 
-            val result = uploader.streamUpload(
-                imageBytes,
-                "http://192.168.1.12:80/upload"
-            )
-
-            println("Upload result: $result")
+            viewmodel.test(imageBytes)
         } catch (e: Exception) {
             println("Upload failed: ${e.message}")
-        } finally {
-            uploader.close()
         }
     }
 }

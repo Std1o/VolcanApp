@@ -62,8 +62,13 @@ dependencies {
     // Ktor
     implementation("io.ktor:ktor-client-core:2.3.7")
     implementation("io.ktor:ktor-client-okhttp:2.3.7")
-
+    // Domain
+    implementation(project(":domain"))
+    // Data
+    implementation(project(":data"))
+    // Presentation
     implementation(project(":presentation:uploadImage"))
     // Koin
     implementation("io.insert-koin:koin-core:3.5.0")
+    implementation("io.insert-koin:koin-android:3.5.0")
 }
