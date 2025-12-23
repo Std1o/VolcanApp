@@ -1,4 +1,4 @@
-package com.stdio.volcanapp.ui.theme
+package com.stdio.uploadimage.ui.theme
 
 import android.app.Activity
 import android.os.Build

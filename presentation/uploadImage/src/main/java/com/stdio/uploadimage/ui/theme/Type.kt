@@ -1,4 +1,4 @@
-package com.stdio.volcanapp.ui.theme
+package com.stdio.uploadimage.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

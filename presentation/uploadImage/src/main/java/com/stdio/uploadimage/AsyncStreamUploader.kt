@@ -1,4 +1,4 @@
-package com.stdio.volcanapp
+package com.stdio.uploadimage
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.post

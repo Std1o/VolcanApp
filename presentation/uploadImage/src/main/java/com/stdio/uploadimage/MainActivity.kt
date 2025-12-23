@@ -1,4 +1,4 @@
-package com.stdio.volcanapp
+package com.stdio.uploadimage
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -16,7 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.graphics.createBitmap
 import coil.compose.AsyncImage
-import com.stdio.volcanapp.ui.theme.VolcanAppTheme
+import com.stdio.uploadimage.ui.theme.VolcanAppTheme
 import java.io.ByteArrayOutputStream
 
 class MainActivity : ComponentActivity() {

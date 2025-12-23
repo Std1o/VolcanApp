@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "VolcanApp"
 include(":app")
+include(":presentation:uploadImage")

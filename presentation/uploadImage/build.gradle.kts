@@ -1,23 +1,20 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.stdio.volcanapp"
+    namespace = "com.stdio.uploadimage"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.stdio.volcanapp"
-        minSdk = 23
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 21
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -62,5 +59,4 @@ dependencies {
     // Ktor
     implementation("io.ktor:ktor-client-core:2.3.7")
     implementation("io.ktor:ktor-client-okhttp:2.3.7")
-    implementation(project(":presentation:uploadImage"))
 }
