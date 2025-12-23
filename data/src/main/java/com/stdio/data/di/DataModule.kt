@@ -1,6 +1,7 @@
 package com.stdio.data.di
 
 import android.util.Log
+import com.stdio.data.BuildConfig
 import com.stdio.data.remote.ImageRemoteDataSource
 import com.stdio.data.repository.ImageRepositoryImpl
 import com.stdio.domain.repository.ImageRepository
@@ -12,13 +13,15 @@ import org.koin.dsl.module
 
 val dataModule = module {
     fun providesKtorClient(): HttpClient = HttpClient {
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    Log.d("HTTP", message)
+        if (BuildConfig.DEBUG) {
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Log.d("HTTP", message)
+                    }
                 }
+                level = LogLevel.ALL
             }
-            level = LogLevel.ALL
         }
     }
 
