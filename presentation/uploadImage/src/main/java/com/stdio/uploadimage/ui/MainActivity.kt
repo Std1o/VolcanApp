@@ -1,4 +1,4 @@
-package com.stdio.uploadimage
+package com.stdio.uploadimage.ui
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -16,7 +16,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.graphics.createBitmap
 import coil.compose.AsyncImage
+import com.stdio.uploadimage.AsyncStreamUploader
 import com.stdio.uploadimage.ui.theme.VolcanAppTheme
+import com.stdio.uploadimage.viewmodel.ImageViewModel
+import org.koin.androidx.compose.koinViewModel
 import java.io.ByteArrayOutputStream
 
 class MainActivity : ComponentActivity() {
@@ -43,6 +46,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         contentDescription = "",
         model = imageBytes
     )
+    val viewmodel = koinViewModel<ImageViewModel>()
+    viewmodel.test()
     LaunchedEffect(imageBytes) {
         val uploader = AsyncStreamUploader()
 
