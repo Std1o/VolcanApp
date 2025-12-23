@@ -11,13 +11,15 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import org.koin.dsl.module
 
+private const val TAG = "HTTP"
+
 val dataModule = module {
     fun providesKtorClient(): HttpClient = HttpClient {
         if (BuildConfig.DEBUG) {
             install(Logging) {
                 logger = object : Logger {
                     override fun log(message: String) {
-                        Log.d("HTTP", message)
+                        Log.d(TAG, message)
                     }
                 }
                 level = LogLevel.ALL
