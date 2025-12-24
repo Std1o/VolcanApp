@@ -23,3 +23,19 @@ UI: Jetpack Compose
 ## Для проверки:
 
 - Поменять URL можно в buildConfigField модуля data
+
+## Структура проекта
+
+### Модули и ключевые классы
+- **app** - точка входа
+  - `App` инициализирует koin связывая di модули 
+- **domain** - бизнес-логика
+  - `ImageRepository` интерфейс репозитория, нужен для того чтобы domain не зависел от data. Domain предоставляет интерфейс, а data делает реализацию
+  - `CloseStreamUseCase` и `UploadImageUseCase` не содержат бизнес-логики, созданы для примера поддержания clean arch
+  - `GeneratePngUseCase` генерирует массивы байтов для PNG *[сгенерирован нейросетью]*
+- **data** - работа с данными
+  - `ImageRemoteDataSource` загружает массивы байтов на сервер потоково по мере поступления из flow
+- **presentation** - UI слой
+  - `ImageUiState` содержит актуальное состояние UI
+  - `MainScreen` рисует UI с помощью Jetpack Compose
+  - `ImageViewModel` содержит UI логику, хранит состояние UI, связывает UI с domain
