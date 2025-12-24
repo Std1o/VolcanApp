@@ -14,6 +14,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -28,6 +31,16 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(modifier: Modifier = Modifier) {
     val viewModel = koinViewModel<ImageViewModel>()
     val uiState = viewModel.uiState.collectAsState()
+    val canGenerate by remember(uiState) {
+        derivedStateOf {
+            uiState.value.widthInput.isNotBlank() && uiState.value.heightInput.isNotBlank() && !uiState.value.isGenerating
+        }
+    }
+    val canUpload by remember(uiState, viewModel.previewPng) {
+        derivedStateOf {
+            !uiState.value.isGenerating && viewModel.previewPng != null && !uiState.value.isUploading
+        }
+    }
 
     Column(
         modifier = modifier
@@ -67,7 +80,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     .weight(1f)
                     .padding(end = 8.dp),
                 onClick = { viewModel.generateImage() },
-                enabled = uiState.value.widthInput.isNotBlank() && uiState.value.heightInput.isNotBlank() && !uiState.value.isGenerating
+                enabled = canGenerate
             ) {
                 if (uiState.value.isGenerating) {
                     CircularProgressIndicator(modifier = Modifier.size(16.dp))
@@ -80,7 +93,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     .weight(1f)
                     .padding(start = 8.dp),
                 onClick = { viewModel.uploadImage() },
-                enabled = viewModel.previewPng != null && !uiState.value.isUploading
+                enabled = canUpload
             ) {
                 if (uiState.value.isUploading) {
                     CircularProgressIndicator(modifier = Modifier.size(16.dp))
