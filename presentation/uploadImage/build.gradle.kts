@@ -58,9 +58,6 @@ dependencies {
     implementation(project(":domain"))
     // Coil
     implementation(libs.coil.compose)
-    // Ktor
-    implementation("io.ktor:ktor-client-core:2.3.7")
-    implementation("io.ktor:ktor-client-okhttp:2.3.7")
     // Koin
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
