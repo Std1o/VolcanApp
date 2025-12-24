@@ -15,7 +15,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
 
-        buildConfigField("String", "BASE_URL", "\"http://192.168.1.12:80/\"")
+        buildConfigField("String", "BASE_URL", "\"http://194.87.187.207/\"")
     }
 
     buildTypes {
