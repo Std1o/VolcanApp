@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stdio.domain.usecase.CloseStreamUseCase
 import com.stdio.domain.usecase.UploadImageUseCase
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ImageViewModel(
@@ -11,9 +12,9 @@ class ImageViewModel(
     private val closeStreamUseCase: CloseStreamUseCase
 ) : ViewModel() {
 
-    fun test(data: ByteArray) {
+    fun test(pngFlow: Flow<ByteArray>) {
         viewModelScope.launch {
-            uploadImageUseCase(data)
+            uploadImageUseCase(pngFlow)
             closeStreamUseCase()
         }
     }

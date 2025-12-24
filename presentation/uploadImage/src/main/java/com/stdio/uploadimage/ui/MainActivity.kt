@@ -3,7 +3,6 @@ package com.stdio.uploadimage.ui
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,8 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.core.graphics.createBitmap
 import coil.compose.AsyncImage
 import com.stdio.uploadimage.ui.theme.VolcanAppTheme
 import com.stdio.uploadimage.viewmodel.ImageViewModel
@@ -40,38 +41,58 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val imageBytes = createWhiteRectanglePng(150, 200)
-    AsyncImage(
-        contentDescription = "",
-        model = imageBytes
-    )
     val viewmodel = koinViewModel<ImageViewModel>()
-    LaunchedEffect(imageBytes) {
+
+    val originalWidth = 1000
+    val originalHeight = 90000
+    val maxPreviewSize = 800
+
+    val previewPng by remember(originalWidth, originalHeight) {
+        derivedStateOf {
+            createPreviewPng(originalWidth, originalHeight, maxPreviewSize)
+        }
+    }
+
+    AsyncImage(
+        model = previewPng,
+        contentDescription = "Preview",
+        modifier = modifier.fillMaxSize()
+    )
+
+    LaunchedEffect(Unit) {
         try {
-
-            println("Starting upload of ${imageBytes.size} bytes...")
-
-            viewmodel.test(imageBytes)
+            val fullPngFlow = StreamingPngGenerator.generatePngStreaming(
+                originalWidth,
+                originalHeight
+            )
+            viewmodel.test(fullPngFlow)
         } catch (e: Exception) {
             println("Upload failed: ${e.message}")
         }
     }
 }
 
-private fun createWhiteRectanglePng(width: Int, height: Int): ByteArray {
-    val bitmap = createBitmap(width, height)
-    val canvas = Canvas(bitmap)
-
-    canvas.drawColor(Color.WHITE)
-
-    val borderPaint = Paint().apply {
-        color = Color.BLACK
-        style = Paint.Style.STROKE
-        strokeWidth = 4f
+private fun createPreviewPng(
+    originalWidth: Int,
+    originalHeight: Int,
+    maxSize: Int
+): ByteArray {
+    val scale = if (originalWidth > originalHeight) {
+        maxSize.toFloat() / originalWidth
+    } else {
+        maxSize.toFloat() / originalHeight
     }
-    canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), borderPaint)
 
-    val stream = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-    return stream.toByteArray()
+    val previewWidth = (originalWidth * scale).toInt().coerceAtLeast(1)
+    val previewHeight = (originalHeight * scale).toInt().coerceAtLeast(1)
+
+    val bitmap = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    canvas.drawColor(Color.RED)
+
+    val outputStream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+    bitmap.recycle()
+
+    return outputStream.toByteArray()
 }
