@@ -61,7 +61,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     LaunchedEffect(Unit) {
         try {
-            val fullPngFlow = StreamingPngGenerator.generatePngStreaming(
+            val fullPngFlow = viewmodel.generatePng(
                 originalWidth,
                 originalHeight
             )

@@ -1,4 +1,4 @@
-package com.stdio.uploadimage.ui
+package com.stdio.domain.usecase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -8,14 +8,14 @@ import java.io.ByteArrayOutputStream
 import java.util.zip.CRC32
 import java.util.zip.Deflater
 
-object StreamingPngGenerator {
+class GeneratePngUseCase {
     /**
      * Сделано с использованием нейросети
      *
      * Генерирует PNG потоково без создания полного Bitmap в памяти
      * @param maxBufferSize максимальный размер буфера в памяти (например, 1MB)
      */
-    fun generatePngStreaming(
+    operator fun invoke(
         width: Int,
         height: Int,
         maxBufferSize: Int = 1024 * 1024 // 1MB
