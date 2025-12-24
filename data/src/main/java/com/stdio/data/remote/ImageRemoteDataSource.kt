@@ -8,6 +8,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.content.OutgoingContent
 import io.ktor.http.contentType
 import io.ktor.utils.io.ByteWriteChannel
+import io.ktor.utils.io.close
 import io.ktor.utils.io.writeFully
 import kotlinx.coroutines.flow.Flow
 

@@ -4,4 +4,6 @@
     <string name="height">Height</string>
     <string name="generate">Generate</string>
     <string name="upload">Upload</string>
+    <string name="upload_is_successful">Upload is successful!</string>
+    <string name="upload_error">Upload error:</string>
 </resources>
