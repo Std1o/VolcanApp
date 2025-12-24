@@ -19,3 +19,7 @@ DI: Koin
 Сеть: Ktor  
 UI: Jetpack Compose  
 Отображение картинок: Coil
+
+## Для проверки:
+
+- Поменять URL можно в buildConfigField модуля data
