@@ -1,10 +1,12 @@
 package com.stdio.uploadimage.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stdio.domain.usecase.CloseStreamUseCase
 import com.stdio.domain.usecase.GeneratePngUseCase
 import com.stdio.domain.usecase.UploadImageUseCase
+import com.stdio.uploadimage.R
 import com.stdio.uploadimage.model.ImageUiState
 import com.stdio.uploadimage.utils.ImageUtils
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +19,9 @@ import kotlinx.coroutines.launch
 class ImageViewModel(
     private val uploadImageUseCase: UploadImageUseCase,
     private val closeStreamUseCase: CloseStreamUseCase,
-    private val generatePngUseCase: GeneratePngUseCase
+    private val generatePngUseCase: GeneratePngUseCase,
+    // Application context
+    private val context: Context
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ImageUiState())
@@ -66,7 +70,7 @@ class ImageViewModel(
                 _uiState.update {
                     it.copy(
                         isGenerating = false,
-                        errorMessage = e.message ?: "Ошибка генерации"
+                        errorMessage = e.message ?: context.getString(R.string.generation_error)
                     )
                 }
             }
@@ -99,7 +103,7 @@ class ImageViewModel(
                 _uiState.update {
                     it.copy(
                         isUploading = false,
-                        errorMessage = e.message ?: "Ошибка загрузки",
+                        errorMessage = e.message ?: context.getString(R.string.upload_error_2),
                         uploadSuccess = false
                     )
                 }
