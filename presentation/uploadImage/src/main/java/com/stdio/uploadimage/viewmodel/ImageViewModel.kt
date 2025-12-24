@@ -1,6 +1,10 @@
 package com.stdio.uploadimage.viewmodel
 
 import android.content.Context
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stdio.domain.usecase.CloseStreamUseCase
@@ -27,8 +31,9 @@ class ImageViewModel(
     private val _uiState = MutableStateFlow(ImageUiState())
     val uiState: StateFlow<ImageUiState> = _uiState.asStateFlow()
 
-    var previewPng: ByteArray? = null
-        private set
+    private var _previewPng = mutableStateOf<ByteArray?>(null)
+    val previewPng: State<ByteArray?> = _previewPng
+
     private var fullPngFlow: Flow<ByteArray>? = null
 
     fun onWidthChanged(width: String) {
@@ -58,14 +63,10 @@ class ImageViewModel(
                 val fullPngFlow = generatePngUseCase(width = width, height = height)
 
                 _uiState.update {
-                    it.copy(
-                        isGenerating = false,
-                        generatedWidth = width,
-                        generatedHeight = height
-                    )
+                    it.copy(isGenerating = false)
                 }
                 this@ImageViewModel.fullPngFlow = fullPngFlow
-                this@ImageViewModel.previewPng = previewPng
+                this@ImageViewModel._previewPng.value = previewPng
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(

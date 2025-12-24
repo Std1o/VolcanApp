@@ -31,14 +31,15 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(modifier: Modifier = Modifier) {
     val viewModel = koinViewModel<ImageViewModel>()
     val uiState = viewModel.uiState.collectAsState()
+    val preview by viewModel.previewPng
     val canGenerate by remember(uiState) {
         derivedStateOf {
             uiState.value.widthInput.isNotBlank() && uiState.value.heightInput.isNotBlank() && !uiState.value.isGenerating
         }
     }
-    val canUpload by remember(uiState, viewModel.previewPng) {
+    val canUpload by remember(uiState, preview) {
         derivedStateOf {
-            !uiState.value.isGenerating && viewModel.previewPng != null && !uiState.value.isUploading
+            !uiState.value.isGenerating && preview != null && !uiState.value.isUploading
         }
     }
 
@@ -104,7 +105,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         }
 
         // Превью изображения
-        viewModel.previewPng?.let { previewPng ->
+        preview?.let { previewPng ->
             AsyncImage(
                 model = previewPng,
                 contentDescription = "Preview",

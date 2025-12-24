@@ -10,8 +10,6 @@ import java.util.zip.Deflater
 
 class GeneratePngUseCase {
     /**
-     * Сделано с использованием нейросети
-     *
      * Генерирует PNG потоково без создания полного Bitmap в памяти
      * @param maxBufferSize максимальный размер буфера в памяти (например, 1MB)
      */
