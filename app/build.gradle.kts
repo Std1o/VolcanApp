@@ -45,6 +45,6 @@ dependencies {
     // Presentation
     implementation(project(":presentation:uploadImage"))
     // Koin
-    implementation("io.insert-koin:koin-core:3.5.0")
-    implementation("io.insert-koin:koin-android:3.5.0")
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 }

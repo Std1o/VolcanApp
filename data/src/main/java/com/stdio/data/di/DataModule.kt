@@ -33,7 +33,6 @@ val dataModule = module {
     fun provideImageRepository(remoteDataSource: ImageRemoteDataSource): ImageRepository =
         ImageRepositoryImpl(remoteDataSource)
 
-    // factory because https://stackoverflow.com/a/67155171
     factory { providesKtorClient() }
     factory { provideImageRemoteDataSource(get()) }
     factory { provideImageRepository(get()) }
