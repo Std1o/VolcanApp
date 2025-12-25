@@ -1,0 +1,26 @@
+# Минимальный workflow для загрузки apk в релиз, сделан на скорую руку, будет падать при отстутствии app/release/app-release.apk
+
+name: Upload APK to Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Upload APK
+      uses: softprops/action-gh-release@v1
+      with:
+        files: app/release/app-release.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
