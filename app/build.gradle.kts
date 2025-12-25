@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("library-convention")
 }
 
 android {
@@ -45,6 +46,5 @@ dependencies {
     // Presentation
     implementation(project(":presentation:uploadImage"))
     // Koin
-    implementation(libs.koin.core)
     implementation(libs.koin.android)
 }

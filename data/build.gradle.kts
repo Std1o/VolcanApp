@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("library-convention")
 }
 
 android {
@@ -53,6 +54,4 @@ dependencies {
     implementation(libs.ktor.client.logging)
     // Domain
     implementation(project(":domain"))
-    // Koin
-    implementation(libs.koin.core)
 }

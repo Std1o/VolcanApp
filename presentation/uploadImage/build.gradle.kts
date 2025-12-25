@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("library-convention")
 }
 
 android {
@@ -59,6 +60,5 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
     // Koin
-    implementation(libs.koin.core)
     implementation(libs.koin.compose)
 }

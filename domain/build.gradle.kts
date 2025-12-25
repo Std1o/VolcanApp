@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
+    id("library-convention")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -13,8 +14,6 @@ kotlin {
 }
 
 dependencies {
-    // Koin
-    implementation(libs.koin.core)
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 }
