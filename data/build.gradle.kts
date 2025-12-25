@@ -48,9 +48,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // Ktor
-    implementation("io.ktor:ktor-client-core:2.3.7")
-    implementation("io.ktor:ktor-client-okhttp:2.3.7")
-    implementation("io.ktor:ktor-client-logging:2.3.7")
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.logging)
     // Domain
     implementation(project(":domain"))
     // Koin
